@@ -5,7 +5,7 @@
 
 .homepage{
 	width: 100%;
-	background: linear-gradient(to top, rgba(0,0,0,0.5)50%, rgba(0,0,0,0.5)50%), url(2.jpg);
+	background: linear-gradient(to top, rgba(0,0,0,0.5)50%, rgba(0,0,0,0.5)50%), url(image.jpg);
 	background-position: center;
 	background-size: cover;
 	height: 109vh;
@@ -24,10 +24,9 @@
 }
 
 .logo{
-	color: #dbc1fc;
+	color: #fff;
 	font-size: 25px;
 	font-family: Arial;
-	padding-left: 20px;
 	float: left;
 	padding-top: 20px;
 }
@@ -64,7 +63,8 @@
 }
 
 .ul-menu li a:hover{
-	color: #dbc1fc;
+	color: #4b76cc;
+	font-size: 16px;
 }
 
 .home-page-content{
@@ -92,8 +92,8 @@
 }
 
 .home-page-content span{
-	color: #dbc1fc;
-	font-size: 60px;
+	color: #ffff;
+	font-size: 50px;
 	text-shadow: 1px 1px 2px grey; 
 }
 
