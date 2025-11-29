@@ -1,0 +1,10 @@
+PREFIX rcw: <https://cours.iut-orsay.fr/rcw/>
+
+SELECT ?code ?nomDept (MAX(?loyer) AS ?loyerMaxMaisonDept)
+WHERE {
+  ?dept rcw:comprend ?ville ;
+    rcw:codeDep ?code ;
+    rcw:nomDept ?nomDept .
+  ?ville rcw:loyerMaxMaison2022 ?loyer .
+}
+GROUP BY ?code ?nomDept

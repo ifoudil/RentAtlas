@@ -1,0 +1,446 @@
+{
+  "baseIRI": "http://example.com/base/",
+  "namespaces": {
+    "com": "https://cours.iut-orsay.fr/rcw/commune",
+    "dept": "https://cours.iut-orsay.fr/rcw/departement/",
+    "rcw": "https://cours.iut-orsay.fr/rcw/",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "reg": "https://cours.iut-orsay.fr/rcw/region/"
+  },
+  "subjectMappings": [
+    {
+      "propertyMappings": [
+        {
+          "property": {
+            "transformation": {
+              "expression": "rdfs",
+              "language": "prefix"
+            },
+            "valueSource": {
+              "source": "constant",
+              "constant": "label"
+            }
+          },
+          "values": [
+            {
+              "valueSource": {
+                "columnName": "LIBGEO",
+                "source": "column"
+              },
+              "valueType": {
+                "type": "language_literal",
+                "language": {
+                  "valueSource": {
+                    "source": "constant",
+                    "constant": "fr"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "property": {
+            "transformation": {
+              "expression": "rcw",
+              "language": "prefix"
+            },
+            "valueSource": {
+              "source": "constant",
+              "constant": "code"
+            }
+          },
+          "values": [
+            {
+              "valueSource": {
+                "columnName": "INSEE_C",
+                "source": "column"
+              },
+              "valueType": {
+                "type": "literal"
+              }
+            }
+          ]
+        },
+        {
+          "property": {
+            "transformation": {
+              "expression": "rcw",
+              "language": "prefix"
+            },
+            "valueSource": {
+              "source": "constant",
+              "constant": "loyerMaison2023"
+            }
+          },
+          "values": [
+            {
+              "valueSource": {
+                "columnName": "loypredm2_Maison2023",
+                "source": "column"
+              },
+              "valueType": {
+                "type": "datatype_literal",
+                "datatype": {
+                  "transformation": {
+                    "expression": "xsd",
+                    "language": "prefix"
+                  },
+                  "valueSource": {
+                    "source": "constant",
+                    "constant": "float"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "property": {
+            "transformation": {
+              "expression": "rcw",
+              "language": "prefix"
+            },
+            "valueSource": {
+              "source": "constant",
+              "constant": "loyerAppart2023"
+            }
+          },
+          "values": [
+            {
+              "valueSource": {
+                "columnName": "loypredm2_Appart2023",
+                "source": "column"
+              },
+              "valueType": {
+                "type": "datatype_literal",
+                "datatype": {
+                  "transformation": {
+                    "expression": "xsd",
+                    "language": "prefix"
+                  },
+                  "valueSource": {
+                    "source": "constant",
+                    "constant": "float"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "property": {
+            "transformation": {
+              "expression": "rcw",
+              "language": "prefix"
+            },
+            "valueSource": {
+              "source": "constant",
+              "constant": "loyerMinMaison2023"
+            }
+          },
+          "values": [
+            {
+              "valueSource": {
+                "columnName": "lwr.IPm2_Maison2023",
+                "source": "column"
+              },
+              "valueType": {
+                "type": "datatype_literal",
+                "datatype": {
+                  "transformation": {
+                    "expression": "xsd",
+                    "language": "prefix"
+                  },
+                  "valueSource": {
+                    "source": "constant",
+                    "constant": "float"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "property": {
+            "transformation": {
+              "expression": "rcw",
+              "language": "prefix"
+            },
+            "valueSource": {
+              "source": "constant",
+              "constant": "loyerMaxMaison2023"
+            }
+          },
+          "values": [
+            {
+              "valueSource": {
+                "columnName": "upr.IPm2_Maison2023",
+                "source": "column"
+              },
+              "valueType": {
+                "type": "datatype_literal",
+                "datatype": {
+                  "transformation": {
+                    "expression": "xsd",
+                    "language": "prefix"
+                  },
+                  "valueSource": {
+                    "source": "constant",
+                    "constant": "float"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "property": {
+            "transformation": {
+              "expression": "rcw",
+              "language": "prefix"
+            },
+            "valueSource": {
+              "source": "constant",
+              "constant": "loyerMinAppart2023"
+            }
+          },
+          "values": [
+            {
+              "valueSource": {
+                "columnName": "lwr.IPm2_Appart2023",
+                "source": "column"
+              },
+              "valueType": {
+                "type": "datatype_literal",
+                "datatype": {
+                  "transformation": {
+                    "expression": "xsd",
+                    "language": "prefix"
+                  },
+                  "valueSource": {
+                    "source": "constant",
+                    "constant": "float"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "property": {
+            "transformation": {
+              "expression": "rcw",
+              "language": "prefix"
+            },
+            "valueSource": {
+              "source": "constant",
+              "constant": "loyerMaxAppart2023"
+            }
+          },
+          "values": [
+            {
+              "valueSource": {
+                "columnName": "upr.IPm2_Appart2023",
+                "source": "column"
+              },
+              "valueType": {
+                "type": "datatype_literal",
+                "datatype": {
+                  "transformation": {
+                    "expression": "xsd",
+                    "language": "prefix"
+                  },
+                  "valueSource": {
+                    "source": "constant",
+                    "constant": "float"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "subject": {
+        "transformation": {
+          "expression": "com",
+          "language": "prefix"
+        },
+        "valueSource": {
+          "columnName": "INSEE_C",
+          "source": "column"
+        }
+      },
+      "typeMappings": [
+        {
+          "transformation": {
+            "expression": "rcw",
+            "language": "prefix"
+          },
+          "valueSource": {
+            "source": "constant",
+            "constant": "commune"
+          }
+        }
+      ]
+    },
+    {
+      "propertyMappings": [
+        {
+          "property": {
+            "transformation": {
+              "expression": "rcw",
+              "language": "prefix"
+            },
+            "valueSource": {
+              "source": "constant",
+              "constant": "codeDep"
+            }
+          },
+          "values": [
+            {
+              "valueSource": {
+                "columnName": "DEP",
+                "source": "column"
+              },
+              "valueType": {
+                "type": "literal"
+              }
+            }
+          ]
+        },
+        {
+          "property": {
+            "transformation": {
+              "expression": "rcw",
+              "language": "prefix"
+            },
+            "valueSource": {
+              "source": "constant",
+              "constant": "comprend"
+            }
+          },
+          "values": [
+            {
+              "transformation": {
+                "expression": "com",
+                "language": "prefix"
+              },
+              "valueSource": {
+                "columnName": "INSEE_C",
+                "source": "column"
+              },
+              "valueType": {
+                "propertyMappings": [],
+                "type": "iri",
+                "typeMappings": []
+              }
+            }
+          ]
+        }
+      ],
+      "subject": {
+        "transformation": {
+          "expression": "dept",
+          "language": "prefix"
+        },
+        "valueSource": {
+          "columnName": "DEP",
+          "source": "column"
+        }
+      },
+      "typeMappings": [
+        {
+          "transformation": {
+            "expression": "rcw",
+            "language": "prefix"
+          },
+          "valueSource": {
+            "source": "constant",
+            "constant": "departement"
+          }
+        }
+      ]
+    },
+    {
+      "propertyMappings": [
+        {
+          "property": {
+            "transformation": {
+              "expression": "rcw",
+              "language": "prefix"
+            },
+            "valueSource": {
+              "source": "constant",
+              "constant": "codeReg"
+            }
+          },
+          "values": [
+            {
+              "valueSource": {
+                "columnName": "REG",
+                "source": "column"
+              },
+              "valueType": {
+                "type": "literal"
+              }
+            }
+          ]
+        },
+        {
+          "property": {
+            "transformation": {
+              "expression": "rcw",
+              "language": "prefix"
+            },
+            "valueSource": {
+              "source": "constant",
+              "constant": "comprend"
+            }
+          },
+          "values": [
+            {
+              "transformation": {
+                "expression": "dept",
+                "language": "prefix"
+              },
+              "valueSource": {
+                "columnName": "DEP",
+                "source": "column"
+              },
+              "valueType": {
+                "propertyMappings": [],
+                "type": "iri",
+                "typeMappings": []
+              }
+            }
+          ]
+        }
+      ],
+      "subject": {
+        "transformation": {
+          "expression": "reg",
+          "language": "prefix"
+        },
+        "valueSource": {
+          "columnName": "REG",
+          "source": "column"
+        }
+      },
+      "typeMappings": [
+        {
+          "transformation": {
+            "expression": "rcw",
+            "language": "prefix"
+          },
+          "valueSource": {
+            "source": "constant",
+            "constant": "region"
+          }
+        }
+      ]
+    }
+  ]
+}
