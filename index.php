@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" type="text/css" href="css/homePageStyle.css" />
+		<title>Home Page</title>
+	</head>
+	<body>
+		<div class='homepage'>
+			<div class='navBar'>
+				<div class='icon'>
+					<h2 class='logo'>Demo-cracy</h2>
+				</div>
+				<div class='menu'>
+					<ul class='ul-menu'>
+						<li><a href='#'>HOME</a></li>
+						<li><a href='#'>ABOUT</a></li>
+						<li><a href='#'>LOGIN</a></li>
+						<li><a href='#'>SIGNUP</a></li>
+						<li><a href='#'>CONTACT</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class='home-page-content'>
+				<h1>Plateforme <br><span>Democratie Participative</span></h1>
+				<p class='paragraphe-home-page'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's 
+					<br>standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled 
+					<br>it to make a type specimen book. It has survived not only five centuries, but also the leap into 
+					<br>electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s 
+					<br>with the release of Letraset sheets containing Lorem Ipsum passages, 
+					<br>and more recently with desktop publishing software like Aldus</p>
+			</div>
+		</div>
+
+	</body>
+</html>
