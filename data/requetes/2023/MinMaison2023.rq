@@ -1,0 +1,10 @@
+PREFIX rcw: <https://cours.iut-orsay.fr/rcw/>
+
+SELECT ?code ?nomDept (MIN(?loyer) AS ?loyerMinMaisonDept)
+WHERE {
+  ?dept rcw:comprend ?ville ;
+    rcw:codeDep ?code ;
+    rcw:nomDept ?nomDept .
+  ?ville rcw:loyerMinMaison2023 ?loyer .
+}
+GROUP BY ?code ?nomDept
