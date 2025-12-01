@@ -10,10 +10,15 @@ async function getData(code) {
     }`;
 
     let url = endpoint + '?query=' + encodeURIComponent(query) ;
-
-    let data = await fetch(url).then(response => response.text());
-    let result = await getGEOJson(data)
-    return result
+    try{
+      let data = await fetch(url).then(response => response.text());
+      let result = await getGEOJson(data)
+      return result
+    } 
+    catch (err) {
+      console.error(err);
+      return null;
+    }
 }
 
 async function getGEOJson(data){
