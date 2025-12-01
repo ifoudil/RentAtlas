@@ -41,10 +41,11 @@ async function getGEOJson(data){
 function getMapURL(url) {
   if (!url) return null;
 
-  const index = url.indexOf("Data:");
+  let index = url.indexOf("Data:");
   if (index === -1) return null;
 
-  const title = decodeURIComponent(url.substring(index).trim());
+  let title = decodeURIComponent(url.substring(index).trim());
+  title = title.replaceAll("+","_")
 
   return `https://commons.wikimedia.org/w/api.php?action=query&prop=revisions&rvprop=content&format=json&titles=${encodeURIComponent(title)}&origin=*`;
 }
