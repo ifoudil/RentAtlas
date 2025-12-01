@@ -37,26 +37,40 @@ async function displayMap2(map){
 
   console.log("displayMap2")
 
-  tab_dep = await getCode()
-  console.log("tableau_departement :")
-  console.log(tab_dep)
-
-  for (let i = 0; i < tab_dep.length ; i++) {
-    console.log(tab_dep[i])
-    try {
-      var geoJson = await getData(tab_dep[i])
-
-      L.tileLayer('https://api.maptiler.com/maps/hybrid/{z}/{x}/{y}.jpg?key=JTzkfuUq9eMmI89PCDrP ', {
-        attribution: '<a href="http://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
-      }).addTo(map);
+  L.tileLayer('https://api.maptiler.com/maps/hybrid/{z}/{x}/{y}.jpg?key=JTzkfuUq9eMmI89PCDrP ', {
+    attribution: '<a href="http://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
+  }).addTo(map);
   
-      L.geoJSON(geoJson).addTo(map)
-    } catch (err) {
-      console.error(err);
-      return null;
-    }
-  
+  try {
+    let tab_dep = await getCode();
+
+    // Fetch all GeoJSONs in parallel
+    let geoJsonPromises = tab_dep.map(dep => getData(dep));
+    let allGeoJson = await Promise.all(geoJsonPromises);
+
+    // Add all GeoJSON layers efficiently
+    let geoGroup = L.layerGroup();
+    allGeoJson.forEach(geoJson => {
+      L.geoJSON(geoJson).addTo(geoGroup);
+    });
+    geoGroup.addTo(map);
+
+  } catch (err) {
+    console.error(err);
+    return null;
   }
+
+  // for (let i = 0; i < tab_dep.length ; i++) {
+  //   try {
+  //     var geoJson = await getData(tab_dep[i])  
+
+  //     L.geoJSON(geoJson).addTo(map)
+  //   } catch (err) {
+  //     console.error(err);
+  //     return null;
+  //   }
+  
+  // }
   
 }
 
