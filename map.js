@@ -24,7 +24,7 @@ async function displayMap() {
       attribution: '<a href="http://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
   }).addTo(map);
 
-  L.geoJSON(geoJson).addTo(map)
+  // L.geoJSON(geoJson).addTo(map)
   displayMap2(map)
 }
 
@@ -51,7 +51,17 @@ async function displayMap2(map){
     // Add all GeoJSON layers efficiently
     let geoGroup = L.layerGroup();
     allGeoJson.forEach(geoJson => {
-      L.geoJSON(geoJson).addTo(geoGroup);
+      L.geoJSON(geoJson, {
+        style: function(feature) {
+          // Random color
+          let colors = ['yellow', 'blue', 'green', 'purple', 'gray', 'crimson'];
+          return {
+            color: colors[Math.floor(Math.random() * colors.length)],
+            weight: 2,
+            fillOpacity: 0.2
+          };
+        }
+      }).addTo(geoGroup);
     });
     geoGroup.addTo(map);
 
