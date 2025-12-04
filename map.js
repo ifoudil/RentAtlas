@@ -46,7 +46,7 @@ async function displayMap(){
     let geoGroup = L.layerGroup();
     allGeoJson.forEach(geoJson => {
       L.geoJSON(geoJson, {
-        style: function(feature) {
+        style: function() {
           // Random color
           let colors = ['yellow', 'blue', 'green', 'purple', 'gray', 'crimson'];
           return {
@@ -58,7 +58,7 @@ async function displayMap(){
       }).addTo(geoGroup);
     });
     geoGroup.addTo(map);
-
+    
   } catch (err) {
     console.error(err);
     return null;
