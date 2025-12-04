@@ -1,4 +1,4 @@
-displayMap2()
+displayMap()
 
 function rawUrlToApi(url) {
   const title = url.match(/title=(Data:[^&]+)/)?.[1];
@@ -6,7 +6,6 @@ function rawUrlToApi(url) {
     ? `https://commons.wikimedia.org/w/api.php?action=query&prop=revisions&rvprop=content&format=json&titles=${encodeURIComponent(title)}&origin=*`
     : null;
 }
-
 
 // async function displayMap() {
 
@@ -28,12 +27,8 @@ function rawUrlToApi(url) {
 //   displayMap2(map)
 // }
 
+async function displayMap(){
 
-
-
-
-
-async function displayMap2(){
   const map = L.map('map').setView([46.2276, 2.2137], 5);
 
   L.tileLayer('https://api.maptiler.com/maps/hybrid/{z}/{x}/{y}.jpg?key=JTzkfuUq9eMmI89PCDrP ', {
