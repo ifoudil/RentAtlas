@@ -1,4 +1,4 @@
-displayMap()
+displayMap2()
 
 function rawUrlToApi(url) {
   const title = url.match(/title=(Data:[^&]+)/)?.[1];
@@ -8,34 +8,33 @@ function rawUrlToApi(url) {
 }
 
 
-async function displayMap() {
+// async function displayMap() {
 
-  try {
-    var geoJson = await getData('91')
-  } catch (err) {
-    console.error(err);
-    return null;
-  }
+//   try {
+//     const geoJson = await getData('91')
+//   } catch (err) {
+//     console.error(err);
+//     return null;
+//   }
   
-  var map = L.map('map').setView([46.2276, 2.2137], 5);
+//   const map = L.map('map').setView([46.2276, 2.2137], 5);
 
 
-  L.tileLayer('https://api.maptiler.com/maps/hybrid/{z}/{x}/{y}.jpg?key=JTzkfuUq9eMmI89PCDrP ', {
-      attribution: '<a href="http://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
-  }).addTo(map);
+//   L.tileLayer('https://api.maptiler.com/maps/hybrid/{z}/{x}/{y}.jpg?key=JTzkfuUq9eMmI89PCDrP ', {
+//       attribution: '<a href="http://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
+//   }).addTo(map);
 
-  // L.geoJSON(geoJson).addTo(map)
-  displayMap2(map)
-}
-
-
-
+//   // L.geoJSON(geoJson).addTo(map)
+//   displayMap2(map)
+// }
 
 
 
-async function displayMap2(map){
 
-  console.log("displayMap2")
+
+
+async function displayMap2(){
+  const map = L.map('map').setView([46.2276, 2.2137], 5);
 
   L.tileLayer('https://api.maptiler.com/maps/hybrid/{z}/{x}/{y}.jpg?key=JTzkfuUq9eMmI89PCDrP ', {
     attribution: '<a href="http://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
@@ -68,20 +67,7 @@ async function displayMap2(map){
   } catch (err) {
     console.error(err);
     return null;
-  }
-
-  // for (let i = 0; i < tab_dep.length ; i++) {
-  //   try {
-  //     var geoJson = await getData(tab_dep[i])  
-
-  //     L.geoJSON(geoJson).addTo(map)
-  //   } catch (err) {
-  //     console.error(err);
-  //     return null;
-  //   }
-  
-  // }
-  
+  }  
 }
 
 
