@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8">
@@ -5,6 +6,7 @@
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
 		<title>RentAtlas</title>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 	</head>
 	<body class="body-mappage">
         <header>
@@ -20,10 +22,10 @@
     
                         <div class="collapse navbar-collapse" id="navbarText">
                             <ul class="navbar-nav me-auto mb-2 mb-lg-0 mt-3">
+                                <li class="nav-item"></li>
+								    <a class="nav-link" href='index.html'>HOMEPAGE</a>
+							    </li>
                                 <li class="nav-item">
-                                    <li class="nav-item">
-                                        <a class="nav-link" href='index.html'>HOMEPAGE</a>
-                                    </li>
                                     <a class="nav-link" href='#'>DASHBOARD</a>
                                 </li>
                                 <li class="nav-item">
@@ -45,25 +47,26 @@
             </div>
         </header>
         <main>
-            <section>
-                <h2>My Leaflet Map</h2>
-                <div id="map" class="ms-4 me-4">
-                    <script src="allDepartements.js"></script>
-                    <script src="fetchMap.js"></script>
-                    <script src="loyer.js"></script> 
-                    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-                    <script src="map.js"></script> 
+            <h1 class="text-center mt-4">Statistiques des loyers : <span id="dept-title">...</span></h1>
+            
+            <div id="charts-container" style="width: 80%; margin: 20px auto;">
+                
+                <div class="chart-wrapper" style="height: 400px; margin-bottom: 60px;">
+                    <canvas id="minChart"></canvas>
                 </div>
-                <div id="info-panel" style="padding: 20px; background: #f8f9fa; margin-top: 10px;">
-                    <h3>Statistiques : <span id="dept-title">Sélectionnez un département</span></h3>
-                    <canvas id="rentChart" style="max-height: 400px;"></canvas>
+                
+                <div class="chart-wrapper" style="height: 400px; margin-bottom: 60px;">
+                    <canvas id="moyChart"></canvas>
                 </div>
-                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-            </section>
+                
+                <div class="chart-wrapper" style="height: 400px; margin-bottom: 60px;">
+                    <canvas id="maxChart"></canvas>
+                </div>
+        
+            </div>
+        
+            <script src="loyer.js"></script>
+            <script src="graphique.js"></script> 
         </main>
-        <footer>
-            <p>Islem et Ludivine Project</p>
-        </footer>
-	</body>
+</body>
 </html>
