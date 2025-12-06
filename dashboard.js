@@ -11,9 +11,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 });
 
-const YEARS = ['2018', '2022', '2023', '2024'];
-const TYPES = ['Appart', 'Maison'];
-
 // execute les requetes
 async function runSPARQL(query) {
     const url = `${RENT_ENDPOINT}?query=${encodeURIComponent(query)}&output=json`;
@@ -43,8 +40,8 @@ async function initMedianeNationaleChart() {
 async function getMedianRentFrance() {
     const promises = [];
 
-    for (const annee of YEARS) {
-        for (const type of TYPES) {
+    for (const annee of ['2018', '2022', '2023', '2024']) {
+        for (const type of ['Appart', 'Maison']) {
             const Q = `
                 PREFIX rcw: <https://cours.iut-orsay.fr/rcw/>
                 SELECT ?loyer WHERE {
@@ -101,31 +98,34 @@ async function initMoyenneNationaleChart() {
 
 // récupère les données de loyer de chaque département
 async function getRentDataFrance() {
-    const promises = [];
+    const Q = `
+        PREFIX rcw: <https://cours.iut-orsay.fr/rcw/>
+        PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
-    for (const annee of YEARS) {
-        for (const type of TYPES) {
-            const Q = `
-                PREFIX rcw: <https://cours.iut-orsay.fr/rcw/>
-                PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+        SELECT ?annee ?type (AVG(?LoyerMoyenDept) AS ?avgMoy)
+        WHERE {
+            VALUES ?annee { "2018" "2022" "2023" "2024" }
+            VALUES ?type { "Appart" "Maison" }
 
-                SELECT (AVG(xsd:float(?moy)) AS ?avgMoy)
+            {
+                SELECT ?annee ?type ?dept (AVG(xsd:float(?value)) AS ?LoyerMoyenDept)
                 WHERE {
                     ?dept rcw:comprend ?commune .
-                    ?commune 
-                        rcw:loyer${type}${annee} ?moy .
+                    BIND(IRI(CONCAT("https://cours.iut-orsay.fr/rcw/loyer", ?type, ?annee)) AS ?prop)
+                    ?commune ?prop ?value .
                 }
-            `;
-
-            promises.push(
-                runSPARQL(Q).then(json => ({
-                    annee,
-                    type: type === "Appart" ? "Appartement" : "Maison",
-                    avgMoy: parseFloat(json.results.bindings[0].avgMoy.value)
-                }))
-            );
+                GROUP BY ?annee ?type ?dept
+            }
         }
-    }
+        GROUP BY ?annee ?type
+        ORDER BY ?annee ?type
+    `;
 
-    return Promise.all(promises);
+    const json = await runSPARQL(Q);
+
+    return json.results.bindings.map(b => ({
+        annee: b.annee.value,
+        type: b.type.value === "Appart" ? "Appartement" : "Maison",
+        avgMoy: parseFloat(b.avgMoy.value)
+    }));
 }
