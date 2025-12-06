@@ -1,0 +1,20 @@
+PREFIX rcw: <https://cours.iut-orsay.fr/rcw/>
+
+SELECT ?code 
+	(AVG(xsd:float(?moyMaison)) AS ?avgMaison)
+	(AVG(xsd:float(?moyAppart)) AS ?avgAppart)
+	(AVG(xsd:float(?maxMaison)) AS ?avgMaxMaison)
+	(AVG(xsd:float(?maxAppart)) AS ?avgMaxAppart)
+	(AVG(xsd:float(?minMaison)) AS ?avgMinMaison)
+	(AVG(xsd:float(?minAppart)) AS ?avgMinAppart)
+WHERE {
+	?dept rcw:codeDep ?code ;
+		  rcw:comprend ?commune .
+	?commune rcw:loyerMaison2024 ?moyMaison;
+			 rcw:loyerAppart2024 ?moyAppart;
+			 rcw:loyerMaisonMax2024 ?maxMaison;
+			 rcw:loyerMaxAppart2024 ?maxAppart;
+			 rcw:loyerMinAppart2024 ?minMaison;
+			 rcw:loyerMinAppart2024 ?minAppart;
+}
+GROUP BY ?code
