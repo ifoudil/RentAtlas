@@ -3,7 +3,9 @@ const RENT_ENDPOINT = 'http://localhost:7200/repositories/loyer';
 let chartInstances = {
     minChart: null,
     moyChart: null,
-    maxChart: null
+    maxChart: null,
+    moyenneNationaleChart: null,
+    medianeNationaleChart: null
 };
 
 // retourne les données sur le loyer pour un département
