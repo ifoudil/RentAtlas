@@ -12,7 +12,7 @@ WHERE {
 		  rcw:comprend ?commune .
 	?commune rcw:loyerMaison2018 ?moyMaison;
 			 rcw:loyerAppart2018 ?moyAppart;
-			 rcw:loyerMaisonMax2018 ?maxMaison;
+			 rcw:loyerMaxMaison2018 ?maxMaison;
 			 rcw:loyerMaxAppart2018 ?maxAppart;
 			 rcw:loyerMinAppart2018 ?minMaison;
 			 rcw:loyerMinAppart2018 ?minAppart;
