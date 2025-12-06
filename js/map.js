@@ -56,12 +56,21 @@ async function displayMap(){
                             
                             window.location.href = 'analysis.html';
 
-                            layer.getPopup().setContent(`Statistiques chargées pour: <b>${deptName}</b>. Ouvrir la nouvelle page.`);
+                            layer.getPopup().setContent(`Statistiques chargées pour: <b>${deptName}</b>. La page est en train de s'ouvrir.`);
 
                         } catch (error) {
                             console.error(`Error loading rent data for ${codeDep}:`, error);
                             layer.getPopup().setContent(`Erreur de chargement des données pour: <b>${deptName}</b>.`);
                         }
+                    },
+                    mouseover: function(e) {
+                        if (!layer.getPopup()) {
+                            layer.bindPopup(`<b>${deptName}</b>`, { className: 'transparent-popup' });
+                        } else {
+                            layer.getPopup().setContent(`<b>${deptName}</b>`);
+                            layer.getPopup().options.className = 'transparent-popup';
+                        }
+                        layer.openPopup();
                     }
                 });
             }
