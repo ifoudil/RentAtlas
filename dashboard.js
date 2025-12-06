@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     await Promise.all([
         initMoyenneNationaleChart(),
-        initMedianeNationaleChart()
+        //initMedianeNationaleChart()
     ]);
 
     document.getElementById("loader").style.display = "none";
@@ -116,42 +116,59 @@ async function getMedianRentFrance() {
 /*  4. GRAPHIQUES                                                             */
 /* -------------------------------------------------------------------------- */
 
-function createLineChart(canvasId, labels, datasets, yTitle) {
-    const ctx = document.getElementById(canvasId);
+function createLineChart(config, fullData, years) {
+    const ctx = document.getElementById(config.canvasId);
     if (!ctx) return;
 
-    if (chartInstances[canvasId]) {
-        chartInstances[canvasId].destroy();
+    if (chartInstances[config.canvasId]) {
+        chartInstances[config.canvasId].destroy();
     }
 
-    chartInstances[canvasId] = new Chart(ctx, {
-        type: "line",
-        data: { labels, datasets },
+    const dataAppart = years.map(y => {
+        const item = fullData.find(d => d.year === y && d.type === 'Appartement');
+        console.log(item)
+        return item ? item[config.dataKey] : null;
+    });
+    console.log(dataAppart)
+    const dataMaison = years.map(y => {
+        const item = fullData.find(d => d.year === y && d.type === 'Maison');
+        return item ? item[config.dataKey] : null;
+    });
+
+    chartInstances[config.canvasId] = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: years,
+            datasets: [
+                {
+                    label: 'Appartement',
+                    data: dataAppart,
+                    borderColor: config.colors.appart,
+                    backgroundColor: config.colors.appart.replace('1)', '0.2)'),
+                    borderWidth: 2,
+                    tension: 0.3,
+                    fill: true
+                },
+                {
+                    label: 'Maison',
+                    data: dataMaison,
+                    borderColor: config.colors.maison,
+                    backgroundColor: config.colors.maison.replace('1)', '0.2)'),
+                    borderWidth: 2,
+                    tension: 0.3,
+                    fill: true
+                }
+            ]
+        },
         options: {
             responsive: true,
-            scales: {
-                y: {
-                    title: { display: true, text: yTitle }
-                },
-                x: {
-                    title: { display: true, text: "Année" }
-                }
-            },
+            maintainAspectRatio: false,
             plugins: {
-                tooltip: {
-                    enabled: true,   // Activer l'affichage des tooltips
-                    mode: 'nearest', // Afficher le tooltip pour la valeur la plus proche de la souris
-                    intersect: false, // Ne nécessite pas un survol exact d'un point
-                    position: 'nearest', // Positionner le tooltip sur la valeur la plus proche de la souris
-                    callbacks: {
-                        // Personnalisation du label dans le tooltip
-                        label: function(context) {
-                            const label = context.dataset.label || '';
-                            const value = context.raw;
-                            return `${label}: ${value} €/m²`;
-                        }
-                    }
-                }
+                title: { display: true, text: config.title, font: { size: 16 } },
+                tooltip: { mode: 'index', intersect: false }
+            },
+            scales: {
+                y: { beginAtZero: false, title: { display: true, text: 'Prix €/m²' } }
             }
         }
     });
@@ -164,27 +181,22 @@ function createLineChart(canvasId, labels, datasets, yTitle) {
 async function initMoyenneNationaleChart() {
     const data = await getRentDataFrance();
 
-    const labels = YEARS;
+    let test = JSON.stringify(data)
+    const rentData = JSON.parse(test);
+    console.log(rentData)
 
-    const maison = data.filter(d => d.type === "Maison").map(d => d.avgMoy);
-    const appart = data.filter(d => d.type === "Appartement").map(d => d.avgMoy);
-
-    createLineChart("moyenneNationaleChart", labels, [
-        {
-            label: "Maison Moyenne (€/m²)",
-            data: maison,
-            borderColor: "rgb(54,162,235)",
-            backgroundColor: "rgba(54, 162, 235, 0.2)", // Fond sous la courbe pour Maison
-            fill: true
-        },
-        {
-            label: "Appartement Moyen (€/m²)",
-            data: appart,
-            borderColor: "rgb(255,99,132)",
-            backgroundColor: "rgba(255, 99, 132, 0.2)", // Fond sous la courbe pour Appartement
-            fill: true
+    const config = {
+        canvasId: 'moyenneNationaleChart',
+        title: 'Moyenne des Loyers MOYEN (€/m²)',
+        dataKey: 'avgMoy',
+        colors: {
+            appart: 'rgba(54, 162, 235, 1)', // Bleu
+            maison: 'rgba(255, 99, 132, 1)'  // Rouge
         }
-    ], "Loyer Moyen (€/m²)");
+    };
+    
+    const years = [...new Set(rentData.map(d => d.year))].sort((a, b) => a - b);
+    createLineChart(config, rentData, years)
 }
 
 async function initMedianeNationaleChart() {
