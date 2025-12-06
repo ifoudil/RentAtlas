@@ -54,7 +54,7 @@ async function displayMap(){
                             localStorage.setItem('currentRentData', JSON.stringify(rentData));
                             localStorage.setItem('currentCodeDep', codeDep);
                             
-                            window.open('analysis.html', '_blank');
+                            window.location.href = 'analysis.html';
 
                             layer.getPopup().setContent(`Statistiques chargées pour: <b>${deptName}</b>. Ouvrir la nouvelle page.`);
 
