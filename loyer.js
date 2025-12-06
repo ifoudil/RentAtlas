@@ -38,7 +38,7 @@ async function getRentData(codeDep) {
                  ?commune ${moyProp} ?moy ;
                           ${minProp} ?min ;
                           ${maxProp} ?max .
-                 FILTER(BOUND(?moy))
+                 
              }`;
 
             const url = RENT_ENDPOINT + '?query=' + encodeURIComponent(query) + '&output=json';
