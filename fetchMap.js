@@ -1,3 +1,4 @@
+// retourne les données de la map sur graphdb
 async function getData(code) {
   let endpoint = 'http://localhost:7200/repositories/loyer';
 
@@ -21,6 +22,7 @@ async function getData(code) {
     }
 }
 
+// retourne le Json pour construire la map
 async function getGEOJson(data){
   try {
     let response = await fetch(getMapURL(data));
@@ -37,7 +39,7 @@ async function getGEOJson(data){
   }
 }
 
-
+// retourne le lien de la map stockée dans la base de données et l'encode correctement pour qu'on puisse en extraire le Json
 function getMapURL(url) {
   if (!url) return null;
 
@@ -45,6 +47,7 @@ function getMapURL(url) {
   if (index === -1) return null;
 
   let title = decodeURIComponent(url.substring(index).trim());
+  // remplace les "+" dans certaines url de map par des tirets du bas pour que ça fonctionne correctement
   title = title.replaceAll("+","_")
 
   return `https://commons.wikimedia.org/w/api.php?action=query&prop=revisions&rvprop=content&format=json&titles=${encodeURIComponent(title)}&origin=*`;

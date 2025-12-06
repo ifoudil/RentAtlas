@@ -1,18 +1,12 @@
-// loyer.js
 const RENT_ENDPOINT = 'http://localhost:7200/repositories/loyer';
 
-// 1. CORRECTION: Utilisation des IDs de canvas HTML comme clés
 let chartInstances = {
     minChart: null,
     moyChart: null,
     maxChart: null
 };
 
-// --- Fonctions de Récupération de Données ---
-
-/**
- * Récupère et AGGRÈGE les données pour le département.
- */
+// retourne les données sur le loyer pour un département
 async function getRentData(codeDep) {
     const years = ['2018', '2022', '2023', '2024'];
     const types = ['Appart', 'Maison'];
@@ -25,7 +19,6 @@ async function getRentData(codeDep) {
             const minProp = `rcw:loyerMin${type}${year}`;
             const maxProp = `rcw:loyerMax${type}${year}`;
             
-            // Requête SPARQL utilisant AVG pour les agrégations départementales
             const query = 
             `PREFIX rcw: <https://cours.iut-orsay.fr/rcw/>
              SELECT 
@@ -68,26 +61,19 @@ async function getRentData(codeDep) {
     return results;
 }
 
-// --- Fonctions de Rendu des Graphiques ---
-
-/**
- * Fonction principale appelée par graphique.js
- */
+// affiche les données sur le graphique pour le département
 function updateChart(deptName, data) {
-    // 1. Mise à jour du titre
     const titleEl = document.getElementById('dept-title');
     if(titleEl) titleEl.innerText = deptName;
 
-    // 2. Préparation des années (Axe X)
     const years = [...new Set(data.map(d => d.annee))].sort((a, b) => a - b);
 
-    // 3. Appel des 3 fonctions spécifiques pour les 3 graphiques (avec couleurs custom)
     displayMinGraph(data, years);
-    displayMoyGraph(data, years); // Utilise des couleurs différentes
+    displayMoyGraph(data, years);
     displayMaxGraph(data, years);
 }
 
-// Affiche le graphique MINIMUM (Couleurs: Bleu / Rouge)
+// affiche le graphique sur le loyer minimum
 function displayMinGraph(data, years) {
     const config = {
         canvasId: 'minChart',
@@ -101,21 +87,21 @@ function displayMinGraph(data, years) {
     buildChart(config, data, years);
 }
 
-// Affiche le graphique MOYEN (Couleurs: Vert / Orange)
+// affiche le graphique sur le loyer moyen
 function displayMoyGraph(data, years) {
     const config = {
         canvasId: 'moyChart',
         title: 'Moyenne des Loyers MOYENS (€/m²)',
         dataKey: 'moy',
         colors: {
-            appart: 'rgba(75, 192, 192, 1)', // Vert Teal
+            appart: 'rgba(75, 192, 192, 1)', // Turquoise
             maison: 'rgba(255, 159, 64, 1)'  // Orange
         }
     };
     buildChart(config, data, years);
 }
 
-// Affiche le graphique MAXIMUM (Couleurs: Bleu / Rouge)
+// affiche le graphique sur le loyer maximum
 function displayMaxGraph(data, years) {
     const config = {
         canvasId: 'maxChart',
@@ -129,19 +115,15 @@ function displayMaxGraph(data, years) {
     buildChart(config, data, years);
 }
 
-/**
- * Fonction utilitaire de construction (Partagée par les 3 fonctions ci-dessus)
- */
+// construit le graphique
 function buildChart(config, fullData, years) {
     const ctx = document.getElementById(config.canvasId);
     if (!ctx) return;
 
-    // Destruction de l'instance précédente (résout le problème "trop de graphiques")
     if (chartInstances[config.canvasId]) {
         chartInstances[config.canvasId].destroy();
     }
 
-    // Extraction des séries de données
     const dataAppart = years.map(y => {
         const item = fullData.find(d => d.annee === y && d.type === 'Appartement');
         return item ? item[config.dataKey] : null;
@@ -152,7 +134,6 @@ function buildChart(config, fullData, years) {
         return item ? item[config.dataKey] : null;
     });
 
-    // Création Chart.js
     chartInstances[config.canvasId] = new Chart(ctx, {
         type: 'line',
         data: {
