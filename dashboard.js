@@ -24,7 +24,7 @@ async function initMedianeNationaleChart() {
 
     const config = {
         canvasId: 'medianeNationaleChart',
-        title: 'Médiane des loyers (€/m²)',
+        title: 'Médiane des loyers en France (€/m²)',
         dataKey: 'median',
         colors: {
             appart: 'rgba(75,192,192, 1)', // Turquoise
@@ -84,7 +84,7 @@ async function initMoyenneNationaleChart() {
 
     const config = {
         canvasId: 'moyenneNationaleChart',
-        title: 'Moyenne des Loyers MOYEN (€/m²)',
+        title: 'Moyenne des Loyers en France (€/m²)',
         dataKey: 'avgMoy',
         colors: {
             appart: 'rgba(54, 162, 235, 1)', // Bleu
