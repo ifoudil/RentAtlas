@@ -4,7 +4,7 @@
 }
 
 .body-homepage{
-	background: linear-gradient(to top, rgba(0,0,0,0.5)50%), url(image.jpg);
+	background: linear-gradient(to top, rgba(0,0,0,0.5)50%), url(../img/image.jpg);
 }
 
 .body-mappage .homepage {
