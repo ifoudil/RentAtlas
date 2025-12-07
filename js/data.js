@@ -1,4 +1,3 @@
-// Appel de la fonction lorsque le DOM est complètement chargé
 document.addEventListener('DOMContentLoaded', () => {
     displayRentTable(); 
     displayDepartmentTable();
@@ -6,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 const endpoint = 'http://localhost:7200/repositories/loyer';
 
-// Fonction pour récupérer et afficher les données dans le tableau
+// afficher les données dans le tableau pour les communes
 async function displayRentTable() {
     const data = await getRentCityData();
 
@@ -34,6 +33,7 @@ async function displayRentTable() {
     });
 }
 
+// retourne les données exemple sur le loyer des communes
 async function getRentCityData() {
     const query = `
     PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
@@ -75,6 +75,7 @@ async function getRentCityData() {
     return results;
 }
 
+// récupère les données exemple sur les départements et les affiche dans le tableau
 async function displayDepartmentTable() {
     const query = `
     PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
