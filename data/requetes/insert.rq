@@ -1,0 +1,25 @@
+PREFIX rcw: <https://cours.iut-orsay.fr/rcw/>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+INSERT {
+    ?department owl:sameAs ?wikidataDepartment ;
+      rcw:nomDept ?departmentLabel ;
+      rcw:map ?map .
+}
+WHERE {
+    ?department a rcw:departement ;
+                rcw:codeDep ?code .
+
+    SERVICE https://query.wikidata.org/sparql {
+                ?wikidataDepartment wdt:P2586 ?code ;
+                                    rdfs:label ?departmentLabel ;
+                                    wdt:P3896 ?map .
+
+     FILTER(lang(?departmentLabel) = "fr")
+     FILTER NOT EXISTS { ?wikidataDepartment wdt:P576 ?date }
+     FILTER(?wikidataDepartment != wd:Q18914778)
+    }
+}
