@@ -34,6 +34,8 @@ Cette problématique présente un intérêt particulier car avoir un logement es
 
 Les informations pour les années 2019 à 2021 n'ont pas été exploitées (absence de données).
 
+Nous avons complété le dataset avec Wikidata. Les informations que nous avons récupéré sont sur les départements : nom et map de chacun. Le code utilisé pour réaliser ceci se trouve dans "data/requetes/insert.rq".
+
 **Code source :** 
 https://github.com/ifoudil/RentAtlas
 
