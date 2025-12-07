@@ -9,11 +9,6 @@ const endpoint = 'http://localhost:7200/repositories/loyer';
 async function displayRentTable() {
     const data = await getRentCityData();
 
-    if (data.length === 0) {
-        document.getElementById('tableBody').innerHTML = '<tr><td colspan="100%">Aucune donnée disponible</td></tr>';
-        return;
-    }
-
     const headerRow = document.getElementById('tableHeader');
     Object.keys(data[0]).forEach(key => {
         const th = document.createElement('th');
@@ -109,11 +104,7 @@ async function displayDepartmentTable() {
             }
             results.push(obj);
         });
-
-        if (results.length === 0) {
-            document.getElementById('departmentBody').innerHTML = '<tr><td colspan="100%">Aucune donnée disponible</td></tr>';
-            return;
-        }
+        
         const headerRow = document.getElementById('departmentHeader');
         Object.keys(results[0]).forEach(key => {
             const th = document.createElement('th');
