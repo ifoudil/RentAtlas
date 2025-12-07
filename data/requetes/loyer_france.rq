@@ -1,0 +1,20 @@
+PREFIX rcw: <https://cours.iut-orsay.fr/rcw/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?annee ?type (AVG(?LoyerMoyenDept) AS ?avgMoy)
+WHERE {
+    VALUES ?annee { "2018" "2022" "2023" "2024" }
+    VALUES ?type { "Appart" "Maison" }
+
+    {
+        SELECT ?annee ?type ?dept (AVG(xsd:float(?value)) AS ?LoyerMoyenDept)
+        WHERE {
+            ?dept rcw:comprend ?commune .
+            BIND(IRI(CONCAT("https://cours.iut-orsay.fr/rcw/loyer", ?type, ?annee)) AS ?prop)
+            ?commune ?prop ?value .
+        }
+        GROUP BY ?annee ?type ?dept
+    }
+}
+GROUP BY ?annee ?type
+ORDER BY ?annee ?type

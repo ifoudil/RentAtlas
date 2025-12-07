@@ -1,0 +1,13 @@
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX rcw: <https://cours.iut-orsay.fr/rcw/>
+
+SELECT ?code ?nomDepartement ?map (SUBSTR(GROUP_CONCAT(?commune; separator=", "), 1, 88) AS ?communes)
+WHERE {
+    ?departement a rcw:departement ;
+                rcw:codeDep ?code ;
+                rcw:nomDept ?nomDepartement ;
+                rcw:map ?map ;
+                rcw:comprend ?commune .
+}
+GROUP BY ?code ?nomDepartement ?map
+LIMIT 10
